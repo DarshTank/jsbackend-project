@@ -3,15 +3,18 @@ import { DB_NAME } from "../constants.js";
 
 const connectDB = async () => {
   try {
-    const connectionInstance = await mongoose.connect(
-      `${process.env.MONGODB_URI}/${DB_NAME}`
-    );
+    // Construct the MongoDB URI
+    const uri = `${process.env.MONGODB_URI}/${DB_NAME}`;
+    console.log("Attempting to connect to MongoDB with URI:", uri);
+
+    // Connect to MongoDB without deprecated options
+    const connectionInstance = await mongoose.connect(uri);
+
     console.log(
-      `\n MongoDB Connected DB Host : ${connectionInstance.connection.host}`
+      `\nMongoDB Connected Successfully! DB Host: ${connectionInstance.connection.host}`
     );
-    // console.log(connectionInstance);
   } catch (error) {
-    console.log("MongoDB conection FAILED ", error);
+    console.error("MongoDB Connection FAILED:", error.message || error);
     process.exit(1);
   }
 };
