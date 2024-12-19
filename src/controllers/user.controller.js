@@ -85,4 +85,17 @@ const registerUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdUser, "User Registered Sucessfully!"));
 });
 
-export { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+  // 1. req body -> data
+  // 2. username or email
+  // 3. find user
+  // 4. password check
+  // 5. access and refresh token
+  // 6. send cookies
+  const { email, username, password } = req.body;
+  if (!username || !email) {
+    throw new ApiError(400, "Username or Email is Required!");
+  }
+});
+
+export { registerUser, loginUser };
